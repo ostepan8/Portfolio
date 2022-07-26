@@ -30,19 +30,19 @@ export default{
                     image: {
                         url:webImg
                     },
-                    title: "Three JS"
+                    title: "Website Development with HTML, CSS, JS"
                 },
                 {
                     image: {
                         url:threeImg
                     },
-                    title: "Web Dev"
+                    title: "3D Programming with Three.js"
                 },
                 {
                     image: {
                         url:gameDev
                     },
-                    title: "Game Dev"
+                    title: "Game Development in Javascript"
                 },
             ]
         }
@@ -53,8 +53,9 @@ export default{
             duration: 2
         })
         gsap.to(this.$refs.projects,{
+            delay: .75,
             opacity:1,
-            duration:2,
+            duration:1.5,
             stagger: 0.1,
             y:0,
             ease:'expo' 

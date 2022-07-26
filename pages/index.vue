@@ -31,7 +31,6 @@ const world = {
 // gui.add(world.plane, 'height',1,500).onChange(generatePlane)
 // gui.add(world.plane, 'widthSegments',1,150).onChange(generatePlane)
 // gui.add(world.plane, 'heightSegments',1,150).onChange(generatePlane)
-
 function generatePlane(){
   planeMesh.geometry.dispose()
   planeMesh.geometry = new PlaneGeometry(world.plane.width,world.plane.height,world.plane.widthSegments,world.plane.heightSegments)
@@ -50,9 +49,7 @@ function generatePlane(){
   }
   planeMesh.geometry.attributes.position.randomValues = randomValues
   planeMesh.geometry.attributes.position.originalPosition = planeMesh.geometry.attributes.position.array
-
   const colors = []
-
 for (let i = 0; i < planeMesh.geometry.attributes.position.count;i++){
   colors.push(0,0.19,0.4)
 }
@@ -61,7 +58,6 @@ planeMesh.geometry.setAttribute(
   new BufferAttribute(new
     Float32Array(colors), 3)
 )
-
 }
 const raycaster = new Raycaster()
 const scene = new Scene();
@@ -74,12 +70,8 @@ const camera = new PerspectiveCamera(
 const renderer = new WebGLRenderer({
   canvas: this.$refs.canvas
 })
-
 renderer.setSize(innerWidth,innerHeight)
 renderer.setPixelRatio(devicePixelRatio)
-
-
-
 const planeGeometry = new PlaneGeometry(world.plane.width,world.plane.height,world.plane.widthSegments,world.plane.heightSegments)
 const planeMaterial = new MeshPhongMaterial(
   {
@@ -88,12 +80,8 @@ const planeMaterial = new MeshPhongMaterial(
   vertexColors: true
 })
 const planeMesh = new Mesh(planeGeometry,planeMaterial)
-
 scene.add(planeMesh)
-
 generatePlane()
-
-
 const backLight = new DirectionalLight(0xFFFFFF, 1)
 console.log(backLight)
 backLight.position.set(0,-1,1)
@@ -108,7 +96,6 @@ const light = new DirectionalLight(0xFFFFFF, 1)
 light.position.set(0,-1,-1)
 scene.add(light)
 camera.position.z = 85
-
 //points object
 // const starGeometry = new BufferGeometry()
 // const starMaterial = new PointsMaterial({
@@ -122,11 +109,8 @@ camera.position.z = 85
 //   starVertices.push(x,y,z)
 // }
 // starGeometry.setAttribute('position', new Float32BufferAttribute(starVertices,3))
-
 // const stars = new Points(starGeometry,starMaterial)
 // scene.add(stars)
-
-
 const mouse = {
   x: undefined,
   y: undefined
@@ -140,7 +124,6 @@ function animate(){
   //planeMesh.rotation.x += 0.01
   for (let i =0; i< array.length; i+=3){
     array[i] = originalPosition[i]+Math.cos(frame + randomValues[i]) * 0.05 
-
     array[i+1] = originalPosition[i+1]+Math.sin(frame + randomValues[i+1]) * 0.05
   }
   planeMesh.geometry.attributes.position.needsUpdate = true
@@ -156,7 +139,6 @@ function animate(){
     color.setX(intersects[0].face.b,0.1)
     color.setY(intersects[0].face.b,0.5)
     color.setZ(intersects[0].face.b,1)
-
 // vert 3
     color.setX(intersects[0].face.c,0.1)
     color.setY(intersects[0].face.c,0.5)
@@ -185,7 +167,6 @@ function animate(){
           color.setX(intersects[0].face.b,hoverColor.r)
           color.setY(intersects[0].face.b,hoverColor.g)
           color.setZ(intersects[0].face.b,hoverColor.b)
-
       // vert 3
           color.setX(intersects[0].face.c,hoverColor.r)
           color.setY(intersects[0].face.c,hoverColor.g)
@@ -198,13 +179,11 @@ function animate(){
   // stars.rotation.x += 0.0005
 }
 animate()
-
 //normalized mouse placements
 addEventListener('mousemove', ()=>{
   mouse.x = (event.clientX / innerWidth) * 2 -1
   mouse.y = (event.clientY / innerHeight) *-2 + 1
 })
-
 gsap.to('#owen-stepan',{
   opacity:1,
   duration: 1.25,
@@ -237,14 +216,12 @@ document.querySelector('#work').addEventListener('click',(e)=>{
   e.preventDefault()
   gsap.to('#holder',{
     opacity: 0
-
   })
     gsap.to(light.position,{
     z: -25,
     delay: 0.15,
     duration: 1.75,
     ease:'circ.in'
-
   })
   gsap.to(backLight.position,{
     z: -25,
@@ -254,10 +231,8 @@ document.querySelector('#work').addEventListener('click',(e)=>{
     onComplete: ()=>{
       this.$router.push('/work')
     }
-
   })
 })
-
 addEventListener('resize',()=>{
   camera.aspect = innerWidth/innerHeight
   camera.updateProjectionMatrix()
